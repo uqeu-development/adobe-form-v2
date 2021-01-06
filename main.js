@@ -7,6 +7,23 @@ let source = ""
 let unsubFlg = ""
 let validForm = false;
 
+function fetchAttributeData(attribute) {
+    let att = document.getElementById('uniqlo-form').getAttribute(attribute);
+    if (attribute === 'error-msg' || attribute === "success-msg") {
+        if (att === null || att === "") {
+            return errorMsg
+        } else {
+            return att;
+        }
+    } else {
+        if (att === null || att === "") {
+            console.error(attribute, 'not defined!')
+        } else {
+            return att;
+        }
+    }
+}
+
 $(document).ready(() => {
 
 
@@ -62,24 +79,9 @@ $(document).ready(() => {
 
 
 
-const fetchAttributeData = (attribute) => {
-    let att = document.getElementById('uniqlo-form').getAttribute(attribute);
-    if (attribute === 'error-msg' || attribute === "success-msg") {
-        if (att === null || att === "") {
-            return errorMsg
-        } else {
-            return att;
-        }
-    } else {
-        if (att === null || att === "") {
-            console.error(attribute, 'not defined!')
-        } else {
-            return att;
-        }
-    }
-}
 
-const isEmail = (emailAddress) => {
+
+function isEmail(emailAddress) {
     let emailAddressRegex = /^[^@\s]+@[^\.@\s]+(\.[^@\s^\.]+)+$/;
     if (emailAddress == '' || emailAddress == null) {
         alert(emailError);
@@ -96,7 +98,7 @@ const isEmail = (emailAddress) => {
     }
 }
 
-const getInputs = (data) => {
+function getInputs(data) {
     $('#uniqlo-form').find('input:not(:checkbox)').map((index, value) => {
         if (value.name === 'email') {
             isEmail(value.value);
@@ -126,7 +128,7 @@ const getInputs = (data) => {
 
 
 
-const onInputChange = () => {
+function onInputChange() {
     let numInputs = $('#uniqlo-form').find('[data-uniqlo-required]').length;
     let currentNumInputs = 0;
     const signupBtn = document.getElementById('signup-btn');
@@ -158,7 +160,7 @@ const onInputChange = () => {
     })
     currentNumInputs === numInputs ? signupBtn.disabled = false : signupBtn.disabled = true;
 }
-const submitData = (e) => {
+function submitData(e) {
 
     e.preventDefault();
 
