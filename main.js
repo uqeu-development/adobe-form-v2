@@ -9,12 +9,6 @@ let validForm = false;
 
 $(document).ready(() => {
 
-    campaign = fetchAttributeData("campaign-name");
-    source = fetchAttributeData("source-name")
-    successMsg = fetchAttributeData('success-msg');
-    errorMsg = fetchAttributeData('error-msg')
-    unsubFlg = fetchAttributeData('unsubscribe-flg')
-
 
     if (window.location.href.includes('uk/en')) {
         region = 'uk/en';
@@ -57,6 +51,12 @@ $(document).ready(() => {
         successMsg = "Grazie. Riceverai presto un'email di conferma."
         emailError = "L'indirizzo e-mail non sembra essere corretto, controlla la sintassi."
     }
+
+    campaign = fetchAttributeData("campaign-name");
+    source = fetchAttributeData("source-name")
+    successMsg = fetchAttributeData('success-msg');
+    errorMsg = fetchAttributeData('error-msg')
+    unsubFlg = fetchAttributeData('unsubscribe-flg')
 
 })
 
