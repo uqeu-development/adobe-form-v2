@@ -3,6 +3,7 @@ var lazyLoadRun = false;
 var theFunctionRun = false;
 var slickRun = false;
 var magnificRun = false;
+var adobeFormRun = false;
 
 // FUNCTION TO LOAD IN ADDITIONAL JS LIBRARIES. JQUERY IS INCLUDED ON THE PAGE BY DEFAULT ON THE MOBILE CMS
 function loadScript(url, callback) {
@@ -55,6 +56,17 @@ var slick = function () {
     }
 }
 
+var adobeForm = function () {
+    if (adobeFormRun === false) {
+        console.log("adobe form code called")
+
+
+        adobeFormRun = true;
+    } else {
+
+    }
+}
+
 
 var magnificCode = function () {
     // CHECK WHETHER THIS CODE HAS RUN ALREADY
@@ -66,6 +78,7 @@ var magnificCode = function () {
     } else { }
 };
 
-loadScript("https://cdn.jsdelivr.net/gh/uqeu-development/theFunction@latest/theFunction.js", theFunction)
-loadScript("https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.3/dist/lazyload.min.js", lazyLoad);
-loadScript("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js", slick)
+// loadScript("https://cdn.jsdelivr.net/gh/uqeu-development/theFunction@latest/theFunction.js", theFunction)
+// loadScript("https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.3/dist/lazyload.min.js", lazyLoad);
+// loadScript("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js", slick)
+loadScript("https://cdn.jsdelivr.net/gh/uqeu-development/adobe-form-v2@latest/main.min.js", adobeForm);

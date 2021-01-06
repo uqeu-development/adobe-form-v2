@@ -126,7 +126,7 @@ const getInputs = (data) => {
 
 
 
-onInputChange = () => {
+const onInputChange = () => {
     let numInputs = $('#uniqlo-form').find('[data-uniqlo-required]').length;
     let currentNumInputs = 0;
     const signupBtn = document.getElementById('signup-btn');
