@@ -11,7 +11,11 @@ function fetchAttributeData(attribute) {
     let att = document.getElementById('uniqlo-form').getAttribute(attribute);
     if (attribute === 'error-msg' || attribute === "success-msg") {
         if (att === null || att === "") {
-            return errorMsg
+            if (attribute === 'error-msg') {
+                return errorMsg;
+            } else {
+                return successMsg;
+            }
         } else {
             return att;
         }
