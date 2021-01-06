@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/fonts/uniqlo-webfont.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/starting-template.css">
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" /> -->
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/main.js"></script>
+    <!-- <script defer src="https://cdn.jsdelivr.net/gh/uqeu-development/theFunction@latest/theFunction.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.3/dist/lazyload.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script> -->
+    <!-- GTM -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/uqeu-development/gtm@v1.0.1/gtm.js"></script> -->
+
+    <title>Starting Template</title>
+</head>
+
+<body>
+
+
+
+    <div id="container">
+
+        <h2>Adobe form v2</h2>
+        <form id="uniqlo-form" onsubmit="submitData(event)" campaign-name="test-campaign"
+            source-name="Special_campaigns" success-msg="hello" error-msg="hello" unsubscribe-flg="1">
+            <!-- Used to show output message after submitting the form -->
+            <div class="output_msg"></div>
+
+            <!-- TEXT FIELD -->
+            <div class="form-row bottom-padded ">
+                <div class="form-label">FIRSTNAME</div>
+                <input data-uniqlo-required id="firstname" name="firstName" oninput="onInputChange()" />
+            </div>
+            <!-- TEXT FIELD -->
+            <div class="form-row bottom-padded ">
+                <div class="form-label">LAST NAME</div>
+                <input data-uniqlo-required id="firstname" name="firstName" oninput="onInputChange()" />
+            </div>
+            <div class="form-row">
+                <div class="form-label">EMAIL ADDRESS*</div>
+                <div class="email-container">
+                    <input data-uniqlo-required id="EMAIL_FIELD" name="email" oninput="onInputChange()" />
+                </div>
+            </div>
+
+
+
+            <div class="form-row">
+                <button disabled id="signup-btn" class="uniqlo-form-submit" onclick="submitData(event)">
+                    Submit
+                </button>
+            </div>
+        </form>
+
+
+
+        <script>
+            var pageLazyLoad = new LazyLoad({
+                elements_selector: "[loading=lazy]",
+                use_native: true // ← enables hybrid lazy loading
+            });
+
+        </script>
+    </div>
+
+</body>
+
+</html>
