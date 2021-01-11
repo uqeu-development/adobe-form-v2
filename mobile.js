@@ -49,6 +49,8 @@ var slick = function () {
     if (slickRun === false) {
         console.log('slickCode called')
 
+        $('#uniqlo-form').slick();
+
         slickRun = true;
     }
     else {
@@ -80,5 +82,5 @@ var magnificCode = function () {
 
 // loadScript("https://cdn.jsdelivr.net/gh/uqeu-development/theFunction@latest/theFunction.js", theFunction)
 // loadScript("https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.3/dist/lazyload.min.js", lazyLoad);
-// loadScript("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js", slick)
-loadScript("https://cdn.jsdelivr.net/gh/uqeu-development/adobe-form-v2@latest/main.min.js", adobeForm);
+loadScript("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js", slick)
+// loadScript("https://cdn.jsdelivr.net/gh/uqeu-development/adobe-form-v2@latest/main.min.js", adobeForm);

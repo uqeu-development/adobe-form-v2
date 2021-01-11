@@ -5,11 +5,28 @@ let emailError = "";
 let campaign = "";
 let source = ""
 let unsubFlg = ""
+let overwriteRegion = "";
+let overwriteCountryCode = "";
+let dev = "";
 let validForm = false;
 
 function fetchAttributeData(attribute) {
     let att = document.getElementById('uniqlo-form').getAttribute(attribute);
-    if (attribute === 'error-msg' || attribute === "success-msg") {
+    if (attribute === 'overwrite-region') {
+        if (att !== null) {
+            if (att !== "") {
+                console.warn("You're overwriting the region!")
+            }
+        }
+    }
+    if (attribute === 'overwrite-countryCode') {
+        if (att !== null) {
+            if (att !== "") {
+                console.warn("You're overwriting the country code!")
+            }
+        }
+    }
+    if (attribute === 'error-msg' || attribute === "success-msg" || attribute === "overwrite-region" || attribute === "overwrite-countryCode" || attribute === "dev") {
         if (att === null || att === "") {
             if (attribute === 'error-msg') {
                 return errorMsg;
@@ -21,7 +38,12 @@ function fetchAttributeData(attribute) {
         }
     } else {
         if (att === null || att === "") {
-            console.error(attribute, 'not defined!')
+            if (attribute === "unsubscribe-flg") {
+                console.warn(attribute, "is empty or not defined! This means the customers won't be subscribed to newsetters.")
+            } else {
+
+                console.error(attribute, 'not defined!')
+            }
         } else {
             return att;
         }
@@ -78,11 +100,11 @@ $(document).ready(() => {
     successMsg = fetchAttributeData('success-msg');
     errorMsg = fetchAttributeData('error-msg')
     unsubFlg = fetchAttributeData('unsubscribe-flg')
+    overwriteCountryCode = fetchAttributeData('overwrite-countryCode');
+    overwriteRegion = fetchAttributeData('overwrite-region')
+    dev = fetchAttributeData('dev')
 
 })
-
-
-
 
 
 function isEmail(emailAddress) {
@@ -130,8 +152,6 @@ function getInputs(data) {
 }
 
 
-
-
 function onInputChange() {
     let numInputs = $('#uniqlo-form').find('[data-uniqlo-required]').length;
     let currentNumInputs = 0;
@@ -164,6 +184,7 @@ function onInputChange() {
     })
     currentNumInputs === numInputs ? signupBtn.disabled = false : signupBtn.disabled = true;
 }
+
 function submitData(e) {
 
     e.preventDefault();
@@ -186,6 +207,7 @@ function submitData(e) {
     params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
     params.append('campaign', campaign);
 
+
     //check for screen size and set medium accordingly
     if (window.innerWidth < 768) {
         params.append('medium', 'Mobile-site');
@@ -197,7 +219,7 @@ function submitData(e) {
     //the function below will detect their location.
     fetch('https://www.cloudflare.com/cdn-cgi/trace').then((response) => {
         response.text().then((countryInfo) => {
-            console.log(region)
+
             let country = countryInfo.split(/\r?\n/)[8].split('=').pop().toString();
             switch (region) {
                 case 'uk/en':
@@ -247,6 +269,11 @@ function submitData(e) {
                         $('.output_msg').removeClass('submit_fail');
                         $('.output_msg').addClass('submit_success')
                         document.getElementById("uniqlo-form").reset();
+                        if (dev === 'true') {
+                            const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
+                            console.log('Your submitted data: ', output)
+                        }
+
                     },
                     error: function (data) {
                         console.log('form not submitted');
@@ -254,6 +281,11 @@ function submitData(e) {
                         $('.output_msg').html(errorMsg);
                         $('.output_msg').removeClass('submit_success');
                         $('.output_msg').addClass('submit_fail')
+                        if (dev === 'true') {
+                            const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
+                            console.log('Your submitted data: ', output)
+                        }
+
                     }
                 });
             }
