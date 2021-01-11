@@ -30,7 +30,7 @@ function fetchAttributeData(attribute) {
         if (att === null || att === "") {
             if (attribute === 'error-msg') {
                 return errorMsg;
-            } else {
+            } else if (attribute === 'success-msg') {
                 return successMsg;
             }
         } else {
@@ -51,7 +51,6 @@ function fetchAttributeData(attribute) {
 }
 
 $(document).ready(() => {
-
 
     if (window.location.href.includes('uk/en')) {
         region = 'uk/en';
@@ -206,7 +205,7 @@ function submitData(e) {
     params.append('source', source);
     params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
     params.append('campaign', campaign);
-    if (overwriteRegion !== "") {
+    if (overwriteRegion !== "" && overwriteRegion !== undefined) {
         params.append('region', overwriteRegion);
     }
 
@@ -223,7 +222,7 @@ function submitData(e) {
         response.text().then((countryInfo) => {
 
             let country = countryInfo.split(/\r?\n/)[8].split('=').pop().toString();
-            if (overwriteCountryCode !== "") {
+            if (overwriteCountryCode !== "" && overwriteCountryCode !== undefined) {
                 params.append('countryCode', overwriteCountryCode);
             } else {
                 switch (region) {
@@ -288,6 +287,7 @@ function submitData(e) {
                         $('.output_msg').html(errorMsg);
                         $('.output_msg').removeClass('submit_success');
                         $('.output_msg').addClass('submit_fail')
+
                         if (dev === 'true') {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
