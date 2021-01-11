@@ -206,7 +206,9 @@ function submitData(e) {
     params.append('source', source);
     params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
     params.append('campaign', campaign);
-
+    if (overwriteRegion !== "") {
+        params.append('region', overwriteRegion);
+    }
 
     //check for screen size and set medium accordingly
     if (window.innerWidth < 768) {
@@ -221,31 +223,36 @@ function submitData(e) {
         response.text().then((countryInfo) => {
 
             let country = countryInfo.split(/\r?\n/)[8].split('=').pop().toString();
-            switch (region) {
-                case 'uk/en':
-                    params.append('countryCode', 'GB')
-                    break;
-                case 'se/en':
-                    params.append('countryCode', 'SE')
-                    break;
-                case 'dk/en':
-                    params.append('countryCode', 'DK');
-                    break;
-                case 'es/es':
-                    params.append('countryCode', 'ES');
-                    break;
-                case 'it/it':
-                    params.append('countryCode', 'IT');
-                    break;
-                case 'fr/fr':
-                    params.append('countryCode', 'FR');
-                    break;
-                case 'de/de':
-                    params.append('countryCode', 'DE');
-                    break;
-                default:
-                    params.append('countryCode', country);
+            if (overwriteCountryCode !== "") {
+                params.append('countryCode', overwriteCountryCode);
+            } else {
+                switch (region) {
+                    case 'uk/en':
+                        params.append('countryCode', 'GB')
+                        break;
+                    case 'se/en':
+                        params.append('countryCode', 'SE')
+                        break;
+                    case 'dk/en':
+                        params.append('countryCode', 'DK');
+                        break;
+                    case 'es/es':
+                        params.append('countryCode', 'ES');
+                        break;
+                    case 'it/it':
+                        params.append('countryCode', 'IT');
+                        break;
+                    case 'fr/fr':
+                        params.append('countryCode', 'FR');
+                        break;
+                    case 'de/de':
+                        params.append('countryCode', 'DE');
+                        break;
+                    default:
+                        params.append('countryCode', country);
+                }
             }
+
 
         }).then(() => {
             //fetch all the inputs
