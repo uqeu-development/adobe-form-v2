@@ -39,7 +39,7 @@ function fetchAttributeData(attribute) {
     } else {
         if (att === null || att === "") {
             if (attribute === "unsubscribe-flg") {
-                console.warn(attribute, "is empty or not defined! This means the customers won't be subscribed to newsetters.")
+                console.warn(attribute, "is empty or not defined! This means the customers won't be opted in for the newsletter.")
             } else {
 
                 console.error(attribute, 'not defined!')
@@ -99,6 +99,10 @@ $(document).ready(() => {
     successMsg = fetchAttributeData('success-msg');
     errorMsg = fetchAttributeData('error-msg')
     unsubFlg = fetchAttributeData('unsubscribe-flg')
+    if (unsubFlg === undefined) {
+        unsubFlg = " ";
+    }
+    console.log(unsubFlg)
     overwriteCountryCode = fetchAttributeData('overwrite-countryCode');
     overwriteRegion = fetchAttributeData('overwrite-region')
     dev = fetchAttributeData('dev')
@@ -206,6 +210,7 @@ function submitData(e) {
     params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
     params.append('campaign', campaign);
     if (overwriteRegion !== "" && overwriteRegion !== undefined) {
+        console.log("hello")
         params.append('region', overwriteRegion);
     }
 
