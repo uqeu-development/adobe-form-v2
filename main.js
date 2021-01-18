@@ -99,9 +99,7 @@ $(document).ready(() => {
     successMsg = fetchAttributeData('success-msg');
     errorMsg = fetchAttributeData('error-msg')
     unsubFlg = fetchAttributeData('unsubscribe-flg')
-    if (unsubFlg === undefined) {
-        unsubFlg = " ";
-    }
+
     overwriteCountryCode = fetchAttributeData('overwrite-countryCode');
     overwriteRegion = fetchAttributeData('overwrite-region')
     dev = fetchAttributeData('dev')
@@ -206,7 +204,9 @@ function submitData(e) {
 
     // CHANGE VALUES BELOW 
     params.append('source', source);
-    params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
+    if (unsubFlg !== undefined) {
+        params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
+    }
     params.append('campaign', campaign);
     if (overwriteRegion !== "" && overwriteRegion !== undefined) {
 
