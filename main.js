@@ -102,7 +102,6 @@ $(document).ready(() => {
     if (unsubFlg === undefined) {
         unsubFlg = " ";
     }
-    console.log(unsubFlg)
     overwriteCountryCode = fetchAttributeData('overwrite-countryCode');
     overwriteRegion = fetchAttributeData('overwrite-region')
     dev = fetchAttributeData('dev')
@@ -210,7 +209,7 @@ function submitData(e) {
     params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
     params.append('campaign', campaign);
     if (overwriteRegion !== "" && overwriteRegion !== undefined) {
-        console.log("hello")
+
         params.append('region', overwriteRegion);
     }
 
