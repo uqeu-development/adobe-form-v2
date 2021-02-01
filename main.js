@@ -283,7 +283,9 @@ function submitData(e) {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
                         }
-                        onAdobeSuccess();
+                        if (typeof onAdobeSuccess === 'function') {
+                            onAdobeSuccess();
+                        }
 
 
                     },
@@ -298,7 +300,9 @@ function submitData(e) {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
                         }
-                        onAdobeFail();
+                        if (typeof onAdobeFail === 'function') {
+                            onAdobeFail();
+                        }
                     }
                 });
             }
