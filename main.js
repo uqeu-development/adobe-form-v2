@@ -283,6 +283,8 @@ function submitData(e) {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
                         }
+                        onAdobeSuccess();
+
 
                     },
                     error: function (data) {
@@ -296,7 +298,7 @@ function submitData(e) {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
                         }
-
+                        onAdobeFail();
                     }
                 });
             }

@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/fonts/uniqlo-webfont.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/starting-template.css">
+    <link rel="stylesheet" href="../assets/fonts/uniqlo-webfont.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/starting-template.css" />
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" /> -->
 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="/main.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/uqeu-development/adobe-form-v2@latest/main.js"></script>
+    <script src="/main.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/uqeu-development/adobe-form-v2@latest/main.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/gh/uqeu-development/adobe-form-v2@latest/main.js"></script> -->
     <!-- <script defer src="https://cdn.jsdelivr.net/gh/uqeu-development/theFunction@latest/theFunction.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.3/dist/lazyload.min.js"></script>
@@ -26,84 +25,110 @@
     <!-- <script src="https://cdn.jsdelivr.net/gh/uqeu-development/gtm@v1.0.1/gtm.js"></script> -->
 
     <title>Starting Template</title>
-</head>
+  </head>
 
-<body>
+  <body>
+    <script>
+      onAdobeFail = () => {
+        console.log("Failed");
+      };
 
-
+      onAdobeSuccess = () => {
+        console.log("success!");
+      };
+    </script>
 
     <div id="container">
+      <h2>Adobe form v2</h2>
+      <!-- Used to show output message after submitting the form -->
+      <div class="output_msg"></div>
+      <form
+        id="uniqlo-form"
+        onsubmit="submitData(event)"
+        campaign-name="202101-test-2"
+        source-name="Special_campaigns"
+        unsubscribe-flg=""
+        error-msg=""
+        success-msg=""
+        overwrite-countryCode=""
+        dev="true"
+      >
+        <div class="form-row">
+          <div class="form-label">FIRSTNAME</div>
+          <input
+            data-uniqlo-required
+            id="firstname"
+            name="firstName"
+            oninput="onInputChange()"
+          />
+        </div>
 
+        <div class="form-row">
+          <div class="form-label">LAST NAME</div>
+          <input
+            data-uniqlo-required
+            id="lastname"
+            name="lastName"
+            oninput="onInputChange()"
+          />
+        </div>
 
+        <div class="form-row">
+          <div class="form-label">Text field 10</div>
+          <input data-uniqlo-required name="text10" oninput="onInputChange()" />
+        </div>
 
-        <h2>Adobe form v2</h2>
-        <!-- Used to show output message after submitting the form -->
-        <div class="output_msg"></div>
-        <form id="uniqlo-form" onsubmit="submitData(event)" campaign-name="202101-test-2"
-            source-name="Special_campaigns" unsubscribe-flg="" error-msg="" success-msg="" overwrite-countryCode=""
-            dev="true">
+        <div class="form-row">
+          <div class="form-label">EMAIL ADDRESS*</div>
+          <div class="email-container">
+            <input
+              data-uniqlo-required
+              id="EMAIL_FIELD"
+              name="email"
+              oninput="onInputChange()"
+            />
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-label">FIRSTNAME</div>
-                <input data-uniqlo-required id="firstname" name="firstName" oninput="onInputChange()" />
-            </div>
+        <!-- Dropdown -->
+        <div class="form-row">
+          <div class="form-label">Dropdown -</div>
+          <div>
+            <select>
+              <!-- change below values to adobe attribute -->
+              <option value="text14">Option 1</option>
+              <option value="text14">Option 2</option>
+            </select>
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-label">LAST NAME</div>
-                <input data-uniqlo-required id="lastname" name="lastName" oninput="onInputChange()" />
-            </div>
+        <!-- Check box -->
+        <div class="form-row">
+          <div>
+            <input
+              style="
+                appearance: checkbox;
+                -webkit-appearance: checkbox;
+                -moz-appearance: checkbox;
+              "
+              type="checkbox"
+              name="text12"
+            />
+            <div>I agree with terms and conditions.</div>
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-label">Text field 10</div>
-                <input data-uniqlo-required name="text10" oninput="onInputChange()" />
-            </div>
-
-            <div class="form-row">
-                <div class="form-label">EMAIL ADDRESS*</div>
-                <div class="email-container">
-                    <input data-uniqlo-required id="EMAIL_FIELD" name="email" oninput="onInputChange()" />
-                </div>
-            </div>
-
-            <!-- Dropdown -->
-            <div class="form-row">
-                <div class="form-label">
-                    Dropdown -
-                </div>
-                <div>
-                    <select>
-                        <!-- change below values to adobe attribute -->
-                        <option value="text14">Option 1</option>
-                        <option value="text14">Option 2</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Check box -->
-            <div class="form-row">
-                <div>
-                    <input style="appearance: checkbox; -webkit-appearance: checkbox; -moz-appearance: checkbox;"
-                        type="checkbox" name="text12" />
-                    <div>I agree with terms and conditions.
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <button disabled id="signup-btn" class="uniqlo-form-submit" onclick="submitData(event)">
-                    Submit
-                </button>
-            </div>
-        </form>
-
-
-
-
-
+        <div class="form-row">
+          <button
+            disabled
+            id="signup-btn"
+            class="uniqlo-form-submit"
+            onclick="submitData(event)"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
-
-
-
-</body>
-
+  </body>
 </html>
