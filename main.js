@@ -9,7 +9,9 @@ let overwriteRegion = "";
 let overwriteCountryCode = "";
 let dev = "";
 let validForm = false;
-let keyDown = "";
+let keyDown = null;
+let DOBValid = "";
+let adobeMessages = [];
 
 function fetchAttributeData(attribute) {
     let att = document.getElementById('uniqlo-form').getAttribute(attribute);
@@ -65,8 +67,8 @@ $(document).ready(() => {
         emailError = "The Email address doesn't seem to be correct, please check syntax."
     } else if (window.location.href.includes('dk/en')) {
         region = 'dk/en';
-        ErrorMsg = "Sorry, something went wrong. Try again later."
-        SuccessMsg = "Thank you. You'll receive a confirmation email soon."
+        errorMsg = "Sorry, something went wrong. Try again later."
+        successMsg = "Thank you. You'll receive a confirmation email soon."
         emailError = "The Email address doesn't seem to be correct, please check syntax."
     } else if (window.location.href.includes('eu/en')) {
         region = 'eu/en';
@@ -107,7 +109,9 @@ $(document).ready(() => {
     const DOB = document.getElementById('DOB');
     if (DOB) {
         DOB.addEventListener('keydown', (e) => {
+
             keyDown = e.keyCode;
+
         });
     }
 
@@ -153,15 +157,20 @@ function getInputs(data) {
     })
     $('#uniqlo-form').find('input[name=DOB]').map((index, value) => {
 
-        console.log(value.value)
         if (value.value.length !== 0) {
-            let s = value.value.split('/');
-            let year = s[2];
-            let month = s[1];
-            let day = s[0];
-            data["year"] = year;
-            data["month"] = month;
-            data["day"] = day;
+            if (DOBValid) {
+
+                let s = value.value.split('/');
+                let year = s[2];
+                let month = s[1];
+                let day = s[0];
+                data["year"] = year;
+                data["month"] = month;
+                data["day"] = day;
+            } else {
+                validForm = false;
+                adobeMessages.push('Invalid date of birth entered, please try again.')
+            }
 
         }
     })
@@ -176,27 +185,18 @@ function getInputs(data) {
 }
 
 function onDOBInput(event) {
-
     //only allow numbers and /
     event.target.value = event.target.value.replace(/[^0-9\/]/g, '').replace(/(\..*)\./g, '$1');
+    let reg = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
 
-
-    if (event.target.value.length === 10) {
+    if (reg.test(event.target.value)) {
         $(event.target).addClass('valid-input');
         $(event.target).removeClass('invalid-input');
+        DOBValid = true;
     } else {
         $(event.target).addClass('invalid-input');
         $(event.target).removeClass('valid-input');
-    }
-
-    if (keyDown !== 8) {
-        const inputValue = event.target.value;
-        if (inputValue.length === 2) {
-            event.target.value = inputValue.concat('/');
-        }
-        if (inputValue.length === 5) {
-            event.target.value = inputValue.concat('/')
-        }
+        DOBValid = false;
     }
 
 }
@@ -235,6 +235,8 @@ function onInputChange() {
 }
 
 function submitData(e) {
+
+
 
     e.preventDefault();
 
@@ -314,8 +316,18 @@ function submitData(e) {
             for (const attribute in values) {
                 params.append(attribute, values[attribute]);
             }
+
+            if (adobeMessages.length !== 0) {
+                if (typeof onAdobeMessages === 'function') {
+                    onAdobeMessages(adobeMessages);
+                }
+                adobeMessages = [];
+            }
+
             if (validForm) {
+
                 //submit the url 
+
                 $.ajax({
                     url: url.href.concat(params.toString()),
                     type: 'POST',
@@ -336,6 +348,7 @@ function submitData(e) {
                         if (typeof onAdobeSuccess === 'function') {
                             onAdobeSuccess(successMsg);
                         }
+                        adobeMessages = [];
 
 
                     },
@@ -353,8 +366,10 @@ function submitData(e) {
                         if (typeof onAdobeFail === 'function') {
                             onAdobeFail(errorMsg);
                         }
+                        adobeMessages = [];
                     }
                 });
+
             }
         })
     })
