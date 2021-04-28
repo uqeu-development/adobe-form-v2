@@ -9,6 +9,7 @@ let overwriteRegion = "";
 let overwriteCountryCode = "";
 let dev = "";
 let validForm = false;
+let keyDown = "";
 
 function fetchAttributeData(attribute) {
     let att = document.getElementById('uniqlo-form').getAttribute(attribute);
@@ -103,6 +104,12 @@ $(document).ready(() => {
     overwriteCountryCode = fetchAttributeData('overwrite-countryCode');
     overwriteRegion = fetchAttributeData('overwrite-region')
     dev = fetchAttributeData('dev')
+    const DOB = document.getElementById('DOB');
+    if (DOB) {
+        DOB.addEventListener('keydown', (e) => {
+            keyDown = e.keyCode;
+        });
+    }
 
 })
 
@@ -126,12 +133,14 @@ function isEmail(emailAddress) {
 
 function getInputs(data) {
     $('#uniqlo-form').find('input:not(:checkbox)').map((index, value) => {
-        if (value.name === 'email') {
-            isEmail(value.value);
-        }
 
-        if (value.value.length != 0) {
-            data[value.name] = value.value
+        if (value.name != 'DOB') {
+            if (value.name === 'email') {
+                isEmail(value.value);
+            }
+            if (value.value.length != 0) {
+                data[value.name] = value.value
+            }
         }
     })
     $('#uniqlo-form').find('input[type=checkbox]').map((index, value) => {
@@ -142,6 +151,21 @@ function getInputs(data) {
             data[value.name] = 'no';
         }
     })
+    $('#uniqlo-form').find('input[name=DOB]').map((index, value) => {
+
+        console.log(value.value)
+        if (value.value.length !== 0) {
+            let s = value.value.split('/');
+            let year = s[2];
+            let month = s[1];
+            let day = s[0];
+            data["year"] = year;
+            data["month"] = month;
+            data["day"] = day;
+
+        }
+    })
+
     $('#uniqlo-form').find('option:selected').map((index, value) => {
 
         if (value.text.length != 0) {
@@ -151,6 +175,31 @@ function getInputs(data) {
     })
 }
 
+function onDOBInput(event) {
+
+    //only allow numbers and /
+    event.target.value = event.target.value.replace(/[^0-9\/]/g, '').replace(/(\..*)\./g, '$1');
+
+
+    if (event.target.value.length === 10) {
+        $(event.target).addClass('valid-input');
+        $(event.target).removeClass('invalid-input');
+    } else {
+        $(event.target).addClass('invalid-input');
+        $(event.target).removeClass('valid-input');
+    }
+
+    if (keyDown !== 8) {
+        const inputValue = event.target.value;
+        if (inputValue.length === 2) {
+            event.target.value = inputValue.concat('/');
+        }
+        if (inputValue.length === 5) {
+            event.target.value = inputValue.concat('/')
+        }
+    }
+
+}
 
 function onInputChange() {
     let numInputs = $('#uniqlo-form').find('[data-uniqlo-required]').length;
@@ -260,6 +309,7 @@ function submitData(e) {
         }).then(() => {
             //fetch all the inputs
             const inputs = getInputs(values);
+
             //construct URL
             for (const attribute in values) {
                 params.append(attribute, values[attribute]);
@@ -284,7 +334,7 @@ function submitData(e) {
                             console.log('Your submitted data: ', output)
                         }
                         if (typeof onAdobeSuccess === 'function') {
-                            onAdobeSuccess();
+                            onAdobeSuccess(successMsg);
                         }
 
 
@@ -301,7 +351,7 @@ function submitData(e) {
                             console.log('Your submitted data: ', output)
                         }
                         if (typeof onAdobeFail === 'function') {
-                            onAdobeFail();
+                            onAdobeFail(errorMsg);
                         }
                     }
                 });
