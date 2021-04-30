@@ -143,7 +143,9 @@ function getInputs(data) {
                 isEmail(value.value);
             }
             if (value.value.length != 0) {
-                data[value.name] = value.value
+                if (value.name !== 'birthDate') {
+                    data[value.name] = value.value
+                }
             }
         }
     })
@@ -155,18 +157,19 @@ function getInputs(data) {
             data[value.name] = 'no';
         }
     })
-    $('#uniqlo-form').find('input[name=DOB]').map((index, value) => {
-
+    $('#uniqlo-form').find('input[name=birthDate]').map((index, value) => {
         if (value.value.length !== 0) {
             if (DOBValid) {
 
-                let s = value.value.split('/');
-                let year = s[2];
-                let month = s[1];
-                let day = s[0];
-                data["year"] = year;
-                data["month"] = month;
-                data["day"] = day;
+                // let s = value.value.split('/');
+                // let year = s[2];
+                // let month = s[1];
+                // let day = s[0];
+                // data["year"] = year;
+                // data["month"] = month;
+                // data["day"] = day;
+                data[value.name] = value.value;
+
             } else {
                 validForm = false;
                 adobeMessages.push('Invalid date of birth entered, please try again.')
