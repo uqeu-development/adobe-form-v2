@@ -161,14 +161,8 @@ function getInputs(data) {
         if (value.value.length !== 0) {
             if (DOBValid) {
 
-                // let s = value.value.split('/');
-                // let year = s[2];
-                // let month = s[1];
-                // let day = s[0];
-                // data["year"] = year;
-                // data["month"] = month;
-                // data["day"] = day;
-                data[value.name] = value.value;
+                const DOB = value.value.split('/');
+                data[value.name] = `${DOB[2]}/${DOB[1]}/${DOB[0]}`
 
             } else {
                 validForm = false;
