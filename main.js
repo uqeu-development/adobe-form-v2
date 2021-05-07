@@ -160,9 +160,8 @@ function getInputs(data) {
     $('#uniqlo-form').find('input[name=birthDate]').map((index, value) => {
         if (value.value.length !== 0) {
             if (DOBValid) {
-
                 const DOB = value.value.split('/');
-                data[value.name] = `${DOB[2]}/${DOB[1]}/${DOB[0]}`
+                data[value.name] = DOB[2] + '/' + DOB[1] + '/' + DOB[0];
 
             } else {
                 validForm = false;
