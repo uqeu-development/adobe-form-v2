@@ -210,7 +210,9 @@ function onInputChange() {
             }
         }
         if ($(index)[0].tagName === 'SELECT') {
-            if ($(index)[0].innerHTML.length !== 0) {
+            const selectedOption = $(index)[0].options[$(index)[0].selectedIndex].text;
+
+            if (selectedOption.length !== 0) {
 
                 currentNumInputs++;
             } else {
