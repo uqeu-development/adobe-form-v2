@@ -1,4 +1,4 @@
-let region = ""; //detect region
+let region = "uk/en"; //detect region
 let errorMsg = "";
 let successMsg = "";
 let emailError = "";
@@ -152,9 +152,13 @@ function getInputs(data) {
     $('#uniqlo-form').find('input[type=checkbox]').map((index, value) => {
 
         if (value.checked === true) {
-            data[value.name] = 'yes';
+            const checkedValue = $(value)[0].dataset.uniqloChecked;
+            if (checkedValue === undefined) return
+            data[value.name] = checkedValue;
         } else {
-            data[value.name] = 'no';
+            const checkedValue = $(value)[0].dataset.uniqloUnchecked;
+            if (checkedValue === undefined) return
+            data[value.name] = checkedValue;
         }
     })
     $('#uniqlo-form').find('input[name=birthDate]').map((index, value) => {
@@ -211,7 +215,6 @@ function onInputChange() {
         }
         if ($(index)[0].tagName === 'SELECT') {
             const selectedOption = $(index)[0].options[$(index)[0].selectedIndex].text;
-
             if (selectedOption.length !== 0) {
 
                 currentNumInputs++;
