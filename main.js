@@ -8,6 +8,7 @@ let unsubFlg = ""
 let overwriteRegion = "";
 let overwriteCountryCode = "";
 let dev = "";
+let formReset = 'true';
 let validForm = false;
 let keyDown = null;
 let DOBValid = "";
@@ -106,6 +107,7 @@ $(document).ready(() => {
     overwriteCountryCode = fetchAttributeData('overwrite-countryCode');
     overwriteRegion = fetchAttributeData('overwrite-region')
     dev = fetchAttributeData('dev')
+    formReset = fetchAttributeData('form-reset')
     const DOB = document.getElementById('DOB');
     if (DOB) {
         DOB.addEventListener('keydown', (e) => {
@@ -341,7 +343,9 @@ function submitData(e) {
                         $('.output_msg').html(successMsg)
                         $('.output_msg').removeClass('submit_fail');
                         $('.output_msg').addClass('submit_success')
-                        document.getElementById("uniqlo-form").reset();
+                        if (formReset === 'true') {
+                            document.getElementById("uniqlo-form").reset();
+                        }
                         if (dev === 'true') {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
