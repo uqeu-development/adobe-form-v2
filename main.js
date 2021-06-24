@@ -44,7 +44,6 @@ function fetchAttributeData(attribute) {
         }
     } else {
         if (att === null || att === "") {
-            console.log('attribute')
             if (attribute === "form-reset") return formReset;
             if (attribute === "unsubscribe-flg") {
                 console.warn(attribute, "is empty or not defined! This means the customers won't be opted in for the newsletter.")
@@ -346,7 +345,7 @@ function submitData(e) {
                         $('.output_msg').html(successMsg)
                         $('.output_msg').removeClass('submit_fail');
                         $('.output_msg').addClass('submit_success')
-                        console.log(formReset)
+
                         if (formReset === 'true') {
                             document.getElementById("uniqlo-form").reset();
                         }
@@ -367,10 +366,7 @@ function submitData(e) {
                         $('.output_msg').html(errorMsg);
                         $('.output_msg').removeClass('submit_success');
                         $('.output_msg').addClass('submit_fail')
-                        console.log(formReset)
-                        if (formReset === 'true') {
-                            document.getElementById("uniqlo-form").reset();
-                        }
+
                         if (dev === 'true') {
                             const output = JSON.parse('{"' + decodeURI(params.toString().replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}')
                             console.log('Your submitted data: ', output)
