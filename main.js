@@ -165,6 +165,19 @@ function getInputs(data) {
             data[value.name] = checkedValue;
         }
     })
+    $('#uniqlo-form').find('input[type=radio]').map((index, value) => {
+
+
+        if (value.checked === true) {
+            const checkedValue = $(value)[0].dataset.uniqloChecked;
+            if (checkedValue === undefined) return
+            data[value.name] = checkedValue;
+        } else {
+            const checkedValue = $(value)[0].dataset.uniqloUnchecked;
+            if (checkedValue === undefined) return
+            data[value.name] = checkedValue;
+        }
+    })
     $('#uniqlo-form').find('input[name=birthDate]').map((index, value) => {
         if (value.value.length !== 0) {
             if (DOBValid) {
