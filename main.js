@@ -1,4 +1,4 @@
-let region = "uk/en"; //detect region
+var region = "uk/en"; //detect region
 let errorMsg = "";
 let successMsg = "";
 let emailError = "";
