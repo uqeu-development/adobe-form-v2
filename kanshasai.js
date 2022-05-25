@@ -1,6 +1,6 @@
 
 
-let region = 'uk/en'
+var region = 'uk/en'
 let errorMsg;
 let successMsg;
 let emailError;
