@@ -105,7 +105,7 @@ const submitData = e => {
     if (countryCode === "") {
         (async () => {
             const cc = await fetchCountry();
-            let country = cc.split(/\r?\n/)[8].split('=').pop().toString();
+            let country = cc.split(/\r?\n/)[9].split('=').pop().toString();
             params.append('countryCode', country)
         })();
     } else {
