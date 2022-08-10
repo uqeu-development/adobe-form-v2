@@ -294,7 +294,7 @@ function submitData(e) {
     fetch('https://www.cloudflare.com/cdn-cgi/trace').then((response) => {
         response.text().then((countryInfo) => {
 
-            let country = countryInfo.split(/\r?\n/)[8].split('=').pop().toString();
+            let country = countryInfo.split(/\r?\n/)[9].split('=').pop().toString();
             if (overwriteCountryCode !== "" && overwriteCountryCode !== undefined) {
                 params.append('countryCode', overwriteCountryCode);
             } else {
