@@ -69,6 +69,7 @@ const submitData = e => {
     const overwriteRegion = document.getElementById(formId)?.dataset?.overwriteRegion || "";
     const campaign = document.getElementById(formId)?.dataset?.campaignName;
     const dev = document.getElementById(formId)?.dataset?.dev;
+    let errorMsg = document.getElementById(formId)?.dataset?.errorMsg;
 
 
 
@@ -113,7 +114,7 @@ const submitData = e => {
     }
 
     const inputs = getInputs(values, formId);
-    console.log(values)
+
 
     //construct URL
     for (const attribute in values) {
@@ -149,7 +150,7 @@ const submitData = e => {
                     console.log('Your submitted data: ', output)
                 }
                 if (typeof onAdobeSuccess === 'function') {
-                    onAdobeSuccess(successMsg);
+                    onAdobeSuccess(successMsg, formId);
                 }
                 adobeMessages = [];
 
@@ -167,7 +168,7 @@ const submitData = e => {
                     console.log('Your submitted data: ', output)
                 }
                 if (typeof onAdobeFail === 'function') {
-                    onAdobeFail(errorMsg);
+                    onAdobeFail(errorMsg, formId);
                 }
                 adobeMessages = [];
             }
@@ -271,4 +272,3 @@ function onDOBInput(event) {
         DOBValid = false;
     }
 }
-
