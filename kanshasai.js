@@ -70,6 +70,7 @@ const submitData = e => {
     const campaign = document.getElementById(formId)?.dataset?.campaignName;
     const dev = document.getElementById(formId)?.dataset?.dev;
     let errorMsg = document.getElementById(formId)?.dataset?.errorMsg;
+    let successMsg = document.getElementById(formId)?.dataset?.successMsg;
 
 
 
