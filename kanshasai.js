@@ -88,9 +88,8 @@ const submitData = e => {
 
     // CHANGE VALUES BELOW 
     params.append('source', source);
-    if (unsubFlg !== undefined) {
-        params.append('unsubscribe_flg', unsubFlg); // Opt the subscriber in for emails
-    }
+
+
     params.append('campaign', campaign);
     if (overwriteRegion !== "" && overwriteRegion !== undefined) {
         params.append('region', overwriteRegion);
@@ -129,13 +128,16 @@ const submitData = e => {
         adobeMessages = [];
     }
 
+
     if (validForm) {
+        // console.log(url.href.concat(params.toString()))
         $.ajax({
             url: url.href.concat(params.toString()),
             type: 'POST',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Authorization", "Basic VW5pcWxvOnB3VHNQeXdKRWxVMG1rTjAxUkhE");
             },
+
             success: function (data) {
                 console.log("form submitted")
                 //add hash here to display success message
@@ -158,6 +160,7 @@ const submitData = e => {
 
             },
             error: function (data) {
+
                 console.log('form not submitted');
                 //add hash here to display error message  
                 $('.output_msg').html(errorMsg);
@@ -199,10 +202,14 @@ function getInputs(data, formId) {
         }
     })
     document.getElementById(formId).querySelectorAll('input[type=checkbox]').forEach((value) => {
+
         if (value.checked === true) {
+
             const checkedValue = value.dataset.uniqloChecked;
+            // console.log('checked', value.name, checkedValue)
             if (checkedValue === undefined) return
             data[value.name] = checkedValue;
+
         } else {
             const checkedValue = value.dataset.uniqloUnchecked;
             if (checkedValue === undefined) return
@@ -239,6 +246,7 @@ function getInputs(data, formId) {
             data[value.value] = value.text;
         }
     })
+    // console.log(data)
 }
 
 function isEmail(emailAddress) {
