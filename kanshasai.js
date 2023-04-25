@@ -88,6 +88,7 @@ const submitData = e => {
 
     // CHANGE VALUES BELOW 
     params.append('source', source);
+    params.append('unsubscribe_flg', unsubFlg);
 
 
     params.append('campaign', campaign);
@@ -156,6 +157,7 @@ const submitData = e => {
                     onAdobeSuccess(successMsg, formId);
                 }
                 adobeMessages = [];
+
 
 
             },
@@ -246,7 +248,7 @@ function getInputs(data, formId) {
             data[value.value] = value.text;
         }
     })
-    // console.log(data)
+
 }
 
 function isEmail(emailAddress) {
