@@ -3,8 +3,9 @@ let errorMsg = "";
 let successMsg = "";
 let emailError = "";
 let campaign = "";
-let source = ""
-let unsubFlg = ""
+let source = "";
+let unsubFlg = "";
+let language = "";
 let overwriteRegion = "";
 let overwriteCountryCode = "";
 var dev = "";
@@ -63,41 +64,73 @@ $(document).ready(() => {
         errorMsg = "Sorry, something went wrong. Try again later."
         successMsg = "Thank you. You'll receive a confirmation email soon."
         emailError = "The Email address doesn't seem to be correct, please check syntax."
+        language = "en";
     } else if (window.location.href.includes('se/en')) {
         region = 'se/en';
         errorMsg = "Sorry, something went wrong. Try again later."
         successMsg = "Thank you. You'll receive a confirmation email soon."
         emailError = "The Email address doesn't seem to be correct, please check syntax."
+        language = "en";
     } else if (window.location.href.includes('dk/en')) {
         region = 'dk/en';
         errorMsg = "Sorry, something went wrong. Try again later."
         successMsg = "Thank you. You'll receive a confirmation email soon."
         emailError = "The Email address doesn't seem to be correct, please check syntax."
+        language = "en";
     } else if (window.location.href.includes('eu/en')) {
         region = 'eu/en';
         errorMsg = "Sorry, something went wrong. Try again later."
         successMsg = "Thank you. You'll receive a confirmation email soon."
         emailError = "The Email address doesn't seem to be correct, please check syntax."
+        language = "en";
     } else if (window.location.href.includes('es/es')) {
         region = 'es/es';
         errorMsg = "Perdón, algo salió mal. Vuelve a intentarlo más tarde"
         successMsg = "Gracias. Pronto recibirá un correo electrónico de confirmación."
         emailError = "La dirección de correo electrónico no parece ser correcta, verifique la sintaxis."
+        language = "es";
     } else if (window.location.href.includes('fr/fr')) {
         region = 'fr/fr';
         errorMsg = "Désolé, quelque chose s'est mal passé. Réessayez plus tard"
         successMsg = "Je vous remercie. Vous recevrez bientôt un e-mail de confirmation."
         emailError = "L'adresse e-mail ne semble pas correcte, veuillez vérifier la syntaxe."
+        language = "fr";
     } else if (window.location.href.includes('de/de')) {
         region = 'de/de';
         errorMsg = "Entschuldigung, etwas ist schief gelaufen. Versuchen Sie es später noch einmal"
         successMsg = "Vielen Dank. Sie erhalten in Kürze eine Bestätigungs-E-Mail."
         emailError = "Die E-Mail-Adresse scheint nicht korrekt zu sein. Bitte überprüfen Sie die Syntax."
+        language = "de";
     } else if (window.location.href.includes('it/it')) {
         region = 'it/it';
         errorMsg = "Scusa, qualcosa è andato storto. Riprovare più tardi"
         successMsg = "Grazie. Riceverai presto un'email di conferma."
         emailError = "L'indirizzo e-mail non sembra essere corretto, controlla la sintassi."
+        language = "it";
+    } else if (window.location.href.includes('be/fr')) {
+        region = 'be/fr';
+        errorMsg = "Désolé, quelque chose s'est mal passé. Réessayez plus tard"
+        successMsg = "Je vous remercie. Vous recevrez bientôt un e-mail de confirmation."
+        emailError = "L'adresse e-mail ne semble pas correcte, veuillez vérifier la syntaxe."
+        language = "fr";
+    } else if (window.location.href.includes('be/nl')) {
+        region = 'be/nl';
+        errorMsg = "Désolé, quelque chose s'est mal passé. Réessayez plus tard"
+        successMsg = "Je vous remercie. Vous recevrez bientôt un e-mail de confirmation."
+        emailError = "L'adresse e-mail ne semble pas correcte, veuillez vérifier la syntaxe."
+        language = "nl";
+    } else if (window.location.href.includes('nl/nl')) {
+        region = 'nl/nl';
+        errorMsg = "Sorry, er ging iets mis. Probeer het later nog eens."
+        successMsg = "Bedankt. Je ontvangt spoedig een bevestigingsmail."
+        emailError = "Het e-mailadres lijkt niet correct te zijn, controleer de syntaxis."
+        language = "nl";
+    } else if (window.location.href.includes('nl/en')) {
+        region = 'nl/en';
+        errorMsg = "Sorry, something went wrong. Try again later."
+        successMsg = "Thank you. You'll receive a confirmation email soon."
+        emailError = "The Email address doesn't seem to be correct, please check syntax."
+        language = "en";
     }
 
     campaign = fetchAttributeData("campaign-name");
@@ -254,8 +287,6 @@ function onInputChange() {
 
 function submitData(e) {
 
-
-
     e.preventDefault();
 
     //check whether the form is in prodtest or not - this is for dev purposes
@@ -270,6 +301,7 @@ function submitData(e) {
 
     let params = new URLSearchParams(url);
     params.append('dwsrc', 'awscontent') //mandatory 
+    params.append('language', language)
 
     // CHANGE VALUES BELOW 
     params.append('source', source);
