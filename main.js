@@ -352,6 +352,18 @@ function submitData(e) {
                     case 'de/de':
                         params.append('countryCode', 'DE');
                         break;
+                    case 'nl/nl':
+                        params.append('countryCode', 'NL');
+                        break;
+                    case 'nl/en':
+                        params.append('countryCode', 'NL');
+                        break;
+                    case 'be/fr':
+                        params.append('countryCode', 'BE');
+                        break;
+                    case 'be/nl':
+                        params.append('countryCode', 'BE');
+                        break;
                     default:
                         params.append('countryCode', country);
                 }
